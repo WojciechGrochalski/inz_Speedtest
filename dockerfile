@@ -5,8 +5,7 @@ RUN apk add --no-cache --update \
 	    apache2 \
  		&& pip install  --no-cache-dir speedtest-cli 
 
-EXPOSE 80 
-LABEL Config Apache server
+EXPOSE 80
 
 ARG interval=1
 ENV interval ${interval}
