@@ -14,7 +14,6 @@ WORKDIR /var/www/localhost/htdocs/
 COPY speedtest.html index.html
 COPY data.json data.json
 RUN echo "ServerName localhost" >> /etc/apache2/httpd.conf
-#RUN sed -i 's/It works!/It works! from Container/g' /var/www/localhost/htdocs/index.html
 WORKDIR /
 COPY script.py ./
 COPY autostart.sh ./
