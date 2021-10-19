@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"/>
+    <title>SpeedTest Docker</title>
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <script type="text/javascript">
+
+//function to (re)initialize UI
+	function initUI(){
+	I("dlText").textContent="";
+	I("ulText").textContent="";
+	I("pingText").textContent="";
+	I("serverLocation").textContent="";
+
+}
+function I(id){return document.getElementById(id);}
+
+    </script>
+
+    <style type="text/css">
+	html,body{
+		border:none; padding:0; margin:0;
+		background:#FFFFFF;
+		color:#202020;
+	}
+	body{
+		text-align:center;
+		font-family:"Roboto",sans-serif;
+	}
+	h1{
+		color:#404040;
+	}
+	#test{
+		margin-top:2em;
+		margin-bottom:12em;
+	}
+	div.testArea{
+		display:inline-block;
+		width:14em;
+		height:9em;
+		position:relative;
+		box-sizing:border-box;
+	}
+	div.testName{
+		position:absolute;
+		top:0.1em; left:0;
+		width:100%;
+		font-size:1.4em;
+		z-index:9;
+	}
+	div.h2 {
+		font-size:1.4em;
+	}
+	div.server {
+		color:#6060AA;
+	}
+	div.meterText{
+		position:absolute;
+		bottom:1.5em; left:0;
+		width:100%;
+		font-size:2.5em;
+		z-index:9;
+	}
+	#dlText{
+		color:#6060AA;
+	}
+	#ulText{
+		color:#309030;
+	}
+	#pingText,#jitText{
+		color:#AA6060;
+	}
+	div.meterText:empty:before{
+		color:#505050 !important;
+		content:"0.00";
+	}
+	div.unit{
+		position:absolute;
+		bottom:2em; left:0;
+		width:100%;
+		z-index:9;
+	}
+	div.testGroup{
+		display:inline-block;
+	}
+	@media all and (max-width:65em){
+		body{
+			font-size:1.5vw;
+		}
+	}
+	@media all and (max-width:40em){
+		body{
+			font-size:0.8em;
+		}
+		div.testGroup{
+			display:block;
+			margin: 0 auto;
+		}
+	}
+	div.server-location{
+		justify-content: center;
+		display:flex;
+		flex-direction: column;
+		margin-top: -150px;
+	}
+
+
+    </style>
+</head>
+<body>
+<br>
+<br>
+<h1>SpeedTest from Docker</h1>
+<br>
+<br>
+<br>
+<div id="test">
+    <div class="testGroup">
+        <div class="testArea">
+            <div class="testName">Ping</div>
+            <div id="pingText" class="meterText"></div>
+            <div class="unit">ms</div>
+        </div>
+    </div>
+    <div class="testGroup">
+        <div class="testArea">
+            <div class="testName">Download</div>
+            <div id="dlText" class="meterText"></div>
+            <div class="unit">Mbps</div>
+        </div>
+        <div class="testArea">
+            <div class="testName">Upload</div>
+            <div id="ulText" class="meterText"></div>
+            <div class="unit">Mbps</div>
+        </div>
+    </div>
+</div>
+<div class="server-location">
+    <div class="h2">Server location</div>
+    <div class="h2 server" id="serverLocation"></div>
+</div>
+
+<script type="text/javascript">
+    initUI();
+	setInterval(function(){ 
+		fetch('data.json', { method: 'GET',
+		 cache: "no-cache"
+		})
+  		.then(response => response.json() )
+  		.then(data => {
+			console.log(data)		
+		  	I("dlText").textContent=data["downloads"]
+			I("ulText").textContent=data["uploads"];
+			I("pingText").textContent=data["ping"];
+			I("serverLocation").textContent=data["serverLocation"];
+  }).catch(error => console.error(error)); }, 4000);
+	
+
+</script>
+</body>
+</html>
