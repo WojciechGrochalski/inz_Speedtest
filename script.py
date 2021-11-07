@@ -8,6 +8,8 @@ try:
 except:
     interval = 5
 
+interval = interval * 60
+
 
 def st():
     downloads = 0.00
@@ -19,14 +21,16 @@ def st():
 
         print('0) Server location: ', end='')
         print(res["name"])
-        data = {"downloads": downloads, "uploads": upload, "ping": int(speed_test.results.ping), "serverLocation": res["name"]}
+        data = {"downloads": downloads, "uploads": upload, "ping": int(speed_test.results.ping),
+                "serverLocation": res["name"]}
         with open('/var/www/localhost/htdocs/data.json', 'w') as outfile:
             json.dump(data, outfile)
 
         print('1) Download Speed: ', end='')
         downloads = round(speed_test.download() / 1000000, 1)
         print(downloads, "Mbps")
-        data = {"downloads": downloads, "uploads": upload, "ping": int(speed_test.results.ping), "serverLocation": res["name"]}
+        data = {"downloads": downloads, "uploads": upload, "ping": int(speed_test.results.ping),
+                "serverLocation": res["name"]}
         with open('/var/www/localhost/htdocs/data.json', 'w') as outfile:
             json.dump(data, outfile)
 
@@ -36,7 +40,8 @@ def st():
 
         print('1) Ping: ', end='')
         print(speed_test.results.ping)
-        data = {"downloads": downloads, "uploads": upload, "ping": int(speed_test.results.ping), "serverLocation": res["name"]}
+        data = {"downloads": downloads, "uploads": upload, "ping": int(speed_test.results.ping),
+                "serverLocation": res["name"]}
         with open('/var/www/localhost/htdocs/data.json', 'w') as outfile:
             json.dump(data, outfile)
         print("done")
@@ -48,5 +53,4 @@ print("Start testing")
 
 while True:
     st()
-    time.sleep(interval * 60)
-
+    time.sleep(interval)

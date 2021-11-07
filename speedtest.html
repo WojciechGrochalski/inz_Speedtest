@@ -12,10 +12,10 @@
     <script type="text/javascript">
       //function to (re)initialize UI
       function initUI() {
-        I("dlText").textContent = "asd";
-        I("ulText").textContent = "asd";
-        I("pingText").textContent = "asd";
-        I("serverLocation").textContent = "asd";
+        I("dlText").textContent = "";
+        I("ulText").textContent = "";
+        I("pingText").textContent = "";
+        I("serverLocation").textContent = "";
       }
       function I(id) {
         return document.getElementById(id);
@@ -77,11 +77,11 @@
       #ulText {
         color: #309030;
       }
-      #pingText{
+      #pingText {
         color: #aa6060;
       }
       #serverLocation {
-        color: #AA9741;
+        color: #aa9741;
       }
       div.meterText:empty:before {
         color: #505050 !important;
